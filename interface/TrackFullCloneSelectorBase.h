@@ -6,9 +6,9 @@
  * 
  * \author Giovanni Petrucciani 
  *
- * \version $Revision: 1.3 $
+ * \version $Revision: 1.4 $
  *
- * $Id: TrackFullCloneSelectorBase.h,v 1.3 2010/02/11 00:10:51 wmtan Exp $
+ * $Id: TrackFullCloneSelectorBase.h,v 1.4 2013/02/28 00:12:51 wmtan Exp $
  *
  */
 
@@ -89,11 +89,16 @@ private:
           if (!copyExtras_) continue;
 
           // TrackExtras
-          selTrackExtras_->push_back( TrackExtra( trk.outerPosition(), trk.outerMomentum(), trk.outerOk(),
-                      trk.innerPosition(), trk.innerMomentum(), trk.innerOk(),
+          // Use the reduced extra (AA)
+          selTrackExtras_->push_back( TrackExtra( 
+                      //trk.outerPosition(), trk.outerMomentum(), 
+                      trk.outerOk(),
+                      //trk.innerPosition(), trk.innerMomentum(), 
+                      trk.innerOk(),
                       trk.outerStateCovariance(), trk.outerDetId(),
                       trk.innerStateCovariance(), trk.innerDetId(),
                       trk.seedDirection() ) );
+                     
           selTracks_->back().setExtra( TrackExtraRef( rTrackExtras, selTrackExtras_->size() - 1) );
           TrackExtra & tx = selTrackExtras_->back();
           // TrackingRecHits

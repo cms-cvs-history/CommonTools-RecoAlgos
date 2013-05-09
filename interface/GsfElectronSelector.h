@@ -7,9 +7,9 @@
  * 
  * \author Luca Lista, INFN
  *
- * \version $Revision: 1.5 $
+ * \version $Revision: 1.6 $
  *
- * $Id: GsfElectronSelector.h,v 1.5 2010/09/27 07:48:51 gpetrucc Exp $
+ * $Id: GsfElectronSelector.h,v 1.6 2013/02/28 00:14:22 wmtan Exp $
  *
  */
 
@@ -55,11 +55,18 @@ namespace helper {
 	if ( trkRef.isNonnull() ) {
 	  selTracks_->push_back( GsfTrack( * trkRef ) );
   	  GsfTrack & trk = selTracks_->back();
-	  selTrackExtras_->push_back( TrackExtra( trk.outerPosition(), trk.outerMomentum(), trk.outerOk(),
-						  trk.innerPosition(), trk.innerMomentum(), trk.innerOk(),
-						  trk.outerStateCovariance(), trk.outerDetId(),
-						  trk.innerStateCovariance(), trk.innerDetId(),
-						  trk.seedDirection() ) );
+     // Use reduced extra (AA) 
+//    selTrackExtras_->push_back( TrackExtra( trk.outerPosition(), trk.outerMomentum(), trk.outerOk(),
+//              trk.innerPosition(), trk.innerMomentum(), trk.innerOk(),
+//              trk.outerStateCovariance(), trk.outerDetId(),
+//              trk.innerStateCovariance(), trk.innerDetId(),
+//              trk.seedDirection() ) );
+    selTrackExtras_->push_back( TrackExtra( trk.outerOk(),
+              trk.innerOk(),
+              trk.outerStateCovariance(), trk.outerDetId(),
+              trk.innerStateCovariance(), trk.innerDetId(),
+              trk.seedDirection() ) );
+              
 	  selGsfTrackExtras_->push_back( GsfTrackExtra( *(trk.gsfExtra()) ) );
   	  TrackExtra & tx = selTrackExtras_->back();
 	  for( trackingRecHit_iterator hit = trk.recHitsBegin(); hit != trk.recHitsEnd(); ++ hit ) {

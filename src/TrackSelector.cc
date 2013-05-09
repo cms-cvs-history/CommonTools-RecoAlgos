@@ -30,11 +30,18 @@ namespace helper
   {
     selTracks_->push_back( Track( trk ) );
     selTracks_->back().setExtra( TrackExtraRef( rTrackExtras_, idx_ ++ ) );
-    selTrackExtras_->push_back( TrackExtra( trk.outerPosition(), trk.outerMomentum(), trk.outerOk(),
-					    trk.innerPosition(), trk.innerMomentum(), trk.innerOk(),
-					    trk.outerStateCovariance(), trk.outerDetId(),
-					    trk.innerStateCovariance(), trk.innerDetId(),
-					    trk.seedDirection() ) );
+// Switch to reduced extra (AA)    
+//    selTrackExtras_->push_back( TrackExtra( trk.outerPosition(), trk.outerMomentum(), trk.outerOk(),
+//					    trk.innerPosition(), trk.innerMomentum(), trk.innerOk(),
+//					    trk.outerStateCovariance(), trk.outerDetId(),
+//					    trk.innerStateCovariance(), trk.innerDetId(),
+//					    trk.seedDirection() ) );
+    selTrackExtras_->push_back( TrackExtra( trk.outerOk(),
+              trk.innerOk(),
+              trk.outerStateCovariance(), trk.outerDetId(),
+              trk.innerStateCovariance(), trk.innerDetId(),
+              trk.seedDirection() ) );
+              
     TrackExtra & tx = selTrackExtras_->back();
     for( trackingRecHit_iterator hit = trk.recHitsBegin(); hit != trk.recHitsEnd();
 	 ++ hit, ++ hidx_ ) {

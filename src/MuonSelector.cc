@@ -73,11 +73,18 @@ namespace helper
 
 	Track & trk= selTracks_->back();
 
-	selTracksExtras_->push_back( TrackExtra( trk.outerPosition(), trk.outerMomentum(), trk.outerOk(),
-						 trk.innerPosition(), trk.innerMomentum(), trk.innerOk(),
-						 trk.outerStateCovariance(), trk.outerDetId(),
-						 trk.innerStateCovariance(), trk.innerDetId(),
-						 trk.seedDirection() ) );
+// Use reduced extra (AA)
+//  selTracksExtras_->push_back( TrackExtra( trk.outerPosition(), trk.outerMomentum(), trk.outerOk(),
+//             trk.innerPosition(), trk.innerMomentum(), trk.innerOk(),
+//             trk.outerStateCovariance(), trk.outerDetId(),
+//             trk.innerStateCovariance(), trk.innerDetId(),
+//             trk.seedDirection() ) );
+  selTracksExtras_->push_back( TrackExtra( trk.outerOk(),
+             trk.innerOk(),
+             trk.outerStateCovariance(), trk.outerDetId(),
+             trk.innerStateCovariance(), trk.innerDetId(),
+             trk.seedDirection() ) );
+
 
 	TrackExtra & tx = selTracksExtras_->back();
 
@@ -103,12 +110,18 @@ namespace helper
 	if(trkRef.isNonnull()){
 	selGlobalMuonTracks_->push_back(Track( *trkRef) );
 	Track & trk = selGlobalMuonTracks_->back();
-		
-	selGlobalMuonTracksExtras_->push_back( TrackExtra( trk.outerPosition(), trk.outerMomentum(), trk.outerOk(),
-						trk.innerPosition(), trk.innerMomentum(), trk.innerOk(),
-						trk.outerStateCovariance(), trk.outerDetId(),
-						trk.innerStateCovariance(), trk.innerDetId(), trk.seedDirection() ) );
-	TrackExtra & tx = selGlobalMuonTracksExtras_->back();
+  
+  // Use reduced extra (AA)
+//	selGlobalMuonTracksExtras_->push_back( TrackExtra( trk.outerPosition(), trk.outerMomentum(), trk.outerOk(),
+//						trk.innerPosition(), trk.innerMomentum(), trk.innerOk(),
+//						trk.outerStateCovariance(), trk.outerDetId(),
+//						trk.innerStateCovariance(), trk.innerDetId(), trk.seedDirection() ) );
+  selGlobalMuonTracksExtras_->push_back( TrackExtra( trk.outerOk(),
+            trk.innerOk(),
+            trk.outerStateCovariance(), trk.outerDetId(),
+            trk.innerStateCovariance(), trk.innerDetId(), trk.seedDirection() ) );
+  	
+  TrackExtra & tx = selGlobalMuonTracksExtras_->back();
 	for( trackingRecHit_iterator hit = trk.recHitsBegin(); hit != trk.recHitsEnd();
 	     ++ hit, ++ higbdx_) {
             selGlobalMuonTracksHits_->push_back( (*hit)->clone() );
@@ -131,11 +144,18 @@ namespace helper
 	selStandAloneTracks_->push_back(Track( *trkRef) );
 	Track & trk = selStandAloneTracks_->back();
 		
-	selStandAloneTracksExtras_->push_back( TrackExtra( trk.outerPosition(), trk.outerMomentum(), trk.outerOk(),
-						trk.innerPosition(), trk.innerMomentum(), trk.innerOk(),
-						trk.outerStateCovariance(), trk.outerDetId(),
-						trk.innerStateCovariance(), trk.innerDetId(), trk.seedDirection() ) );
-	TrackExtra & tx = selStandAloneTracksExtras_->back();
+// Use reduced extra (AA)
+//  selStandAloneTracksExtras_->push_back( TrackExtra( trk.outerPosition(), trk.outerMomentum(), trk.outerOk(),
+//            trk.innerPosition(), trk.innerMomentum(), trk.innerOk(),
+//            trk.outerStateCovariance(), trk.outerDetId(),
+//            trk.innerStateCovariance(), trk.innerDetId(), trk.seedDirection() ) );
+  selStandAloneTracksExtras_->push_back(  TrackExtra( trk.outerOk(),
+            trk.innerOk(),
+            trk.outerStateCovariance(), trk.outerDetId(),
+            trk.innerStateCovariance(), trk.innerDetId(), trk.seedDirection() ) );
+	
+  
+  TrackExtra & tx = selStandAloneTracksExtras_->back();
 	for( trackingRecHit_iterator hit = trk.recHitsBegin(); hit != trk.recHitsEnd(); ++ hit ) {
 	  selStandAloneTracksHits_->push_back( (*hit)->clone() );
 	  tx.add( TrackingRecHitRef( rSAHits_, hisadx_ ++ ) );
