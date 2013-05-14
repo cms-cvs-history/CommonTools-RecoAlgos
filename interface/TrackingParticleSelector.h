@@ -39,8 +39,7 @@ public:
 	stable = false; // we are not interested into PU particles among the stable ones
       } else {
 	for( TrackingParticle::genp_iterator j = tp.genParticle_begin(); j != tp.genParticle_end(); ++ j ) {
-          const HepMC::GenParticle * p = j->get();
-	  if (!p || p->status() != 1) {
+	  if (j->get()==0 || j->get()->status() != 1) {
 	    stable = 0; break;
 	  }
 	}
