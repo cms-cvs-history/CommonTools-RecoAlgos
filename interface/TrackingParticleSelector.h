@@ -4,11 +4,12 @@
  *
  * \author Giuseppe Cerati, INFN
  *
- *  $Date: 2012/05/17 16:12:35 $
- *  $Revision: 1.4 $
+ *  $Date: 2013/02/28 00:14:22 $
+ *  $Revision: 1.5 $
  *
  */
 #include "SimDataFormats/TrackingAnalysis/interface/TrackingParticle.h"
+#include "DataFormats/HepMCCandidate/interface/GenParticle.h"
 
 class TrackingParticleSelector {
 
@@ -51,7 +52,7 @@ public:
       }
     }
     return (
-	    tp.matchedHit() >= minHit_ &&
+	    tp.numberOfTrackerLayers() >= minHit_ &&
 	    sqrt(tp.momentum().perp2()) >= ptMin_ && 
 	    tp.momentum().eta() >= minRapidity_ && tp.momentum().eta() <= maxRapidity_ && 
 	    sqrt(tp.vertex().perp2()) <= tip_ &&
