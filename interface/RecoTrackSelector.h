@@ -4,8 +4,8 @@
  *
  * \author Giuseppe Cerati, INFN
  *
- *  $Date: 2010/02/11 00:10:50 $
- *  $Revision: 1.3 $
+ *  $Date: 2013/06/04 21:29:51 $
+ *  $Revision: 1.3.12.1 $
  *
  */
 #include "DataFormats/TrackReco/interface/Track.h"
@@ -66,10 +66,12 @@ class RecoTrackSelector {
 
   /// Operator() performs the selection: e.g. if (recoTrackSelector(track)) {...}
   bool operator()( const reco::Track & t, edm::Event& event) {
-    if (bs==0) {
+  
+    if ((bs==0)|| (previousEvent != event.id())) {
       edm::Handle<reco::BeamSpot> beamSpot;
       event.getByLabel(bsSrc_,beamSpot); 
       bs = beamSpot.product();
+      previousEvent = event.id();
     }
     return operator()(t);
   }
@@ -123,6 +125,7 @@ class RecoTrackSelector {
   edm::InputTag bsSrc_;
   const reco::BeamSpot* bs;
   container selected_;
+  edm::EventID previousEvent;
 };
 
 #endif
